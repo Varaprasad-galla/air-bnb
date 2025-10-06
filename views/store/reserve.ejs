@@ -1,0 +1,49 @@
+<%- include('../partials/head.ejs') %>
+<body>
+    <%- include('../partials/nav.ejs') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Reserve <%= home.houseName %></h1>
+        
+        <div class="bg-white shadow-lg rounded-lg p-6 max-w-2xl mx-auto">
+            <form action="/homes/<%= home._id %>/book" method="POST" class="space-y-6" onsubmit="console.log('Form submitted:', {
+                checkIn: document.getElementById('checkIn').value,
+                checkOut: document.getElementById('checkOut').value,
+                guests: document.getElementById('guests').value,
+                homeId: '<%= home._id %>'
+            })">
+                <div>
+                    <label for="checkIn" class="block text-sm font-medium text-gray-700">Check-in Date</label>
+                    <input type="date" id="checkIn" name="checkIn" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+
+                <div>
+                    <label for="checkOut" class="block text-sm font-medium text-gray-700">Check-out Date</label>
+                    <input type="date" id="checkOut" name="checkOut" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+
+                <div>
+                    <label for="guests" class="block text-sm font-medium text-gray-700">Number of Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" max="<%= home.capacity %>" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-md">
+                    <h3 class="text-lg font-semibold mb-2">Price Details</h3>
+                    <p class="text-gray-600">₹<%= home.price %> per night</p>
+                    <p class="text-gray-600">Maximum capacity: <%= home.capacity %> guests</p>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Reserve Now
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<%- include('../partials/head') %>
+  </head>
+  <body>
+    <%- include('../partials/nav') %>
+    <main class="container mx-auto mt-20 px-4">
+      <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">My Bookings</h2>
+      
+      <% if (bookings && bookings.length > 0) { %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% for(const booking of bookings) { %>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="<%= booking.home.imageUrl %>" alt="<%= booking.home.title %>" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2"><%= booking.home.title %></h3>
+                <div class="space-y-2 text-gray-600">
+                  <p>
+                    <span class="font-medium">Check-in:</span> 
+                    <%= booking.checkIn.toLocaleDateString() %>
+                  </p>
+                  <p>
+                    <span class="font-medium">Check-out:</span>
+                    <%= booking.checkOut.toLocaleDateString() %>
+                  </p>
+                  <p>
+                    <span class="font-medium">Guests:</span>
+                    <%= booking.guests %>
+                  </p>
+                  <p>
+                    <span class="font-medium">Total Price:</span>
+                    ₹<%= booking.totalPrice %>
+                  </p>
+                  <p>
+                    <span class="font-medium">Status:</span>
+                    <span class="capitalize <%= booking.status === 'confirmed' ? 'text-green-600' : 'text-yellow-600' %>">
+                      <%= booking.status %>
+                    </span>
+                  </p>
+                </div>
+                <div class="mt-4">
+                  <a href="/homes/<%= booking.home._id %>" 
+                     class="text-indigo-600 hover:text-indigo-800 font-medium">
+                    View Home Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-12">
+          <p class="text-2xl text-gray-600 mb-4">You haven't made any bookings yet</p>
+          <a href="/homes" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">
+            Browse Homes
+          </a>
+        </div>
+      <% } %>
+    </main>
+  </body>
+</html>
