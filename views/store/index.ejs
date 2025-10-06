@@ -22,7 +22,19 @@
                   <span class="text-gray-700"><%= home.rating %></span>
                 </div>
               </div>
-              <button class="bg-green-300 p-2">Book</button>
+              <% if (isLoggedIn) { %>
+                <a href="/homes/<%= home._id %>/reserve" 
+                   class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 text-center w-full inline-block mt-2"
+                   style="background-color: #10b981 !important; color: white !important; padding: 8px 16px !important; border-radius: 8px !important; text-decoration: none !important; display: block !important; text-align: center !important; margin-top: 8px !important;">
+                  Book Now
+                </a>
+              <% } else { %>
+                <a href="/login" 
+                   class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300 text-center w-full inline-block mt-2"
+                   style="background-color: #6b7280 !important; color: white !important; padding: 8px 16px !important; border-radius: 8px !important; text-decoration: none !important; display: block !important; text-align: center !important; margin-top: 8px !important;">
+                  Login to Book
+                </a>
+              <% } %>
             </div>
           </div>
         <% }) %>

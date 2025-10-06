@@ -2,54 +2,64 @@
   </head>
   <body>
     <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-20 px-4">
-      <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">My Bookings</h2>
+    <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
+      <h2 class="text-3xl text-red-500 font-bold text-center mb-6">My Bookings</h2>
       
       <% if (bookings && bookings.length > 0) { %>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex flex-wrap justify-center gap-6">
           <% for(const booking of bookings) { %>
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="<%= booking.home.imageUrl %>" alt="<%= booking.home.title %>" class="w-full h-48 object-cover">
-              <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2"><%= booking.home.title %></h3>
-                <div class="space-y-2 text-gray-600">
-                  <p>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 w-full max-w-sm">
+              <img src="<%= booking.home.photoUrl || booking.home.imageUrl %>" alt="<%= booking.home.houseName || booking.home.title %>" class="w-full h-48 object-cover">
+              <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= booking.home.houseName || booking.home.title %></h3>
+                
+                <div class="mb-4 space-y-1">
+                  <p class="text-gray-600 text-sm">
+                    <i class="fas fa-calendar-alt mr-2 text-red-500"></i>
                     <span class="font-medium">Check-in:</span> 
                     <%= booking.checkIn.toLocaleDateString() %>
                   </p>
-                  <p>
+                  <p class="text-gray-600 text-sm">
+                    <i class="fas fa-calendar-alt mr-2 text-red-500"></i>
                     <span class="font-medium">Check-out:</span>
                     <%= booking.checkOut.toLocaleDateString() %>
                   </p>
-                  <p>
+                  <p class="text-gray-600 text-sm">
+                    <i class="fas fa-users mr-2 text-red-500"></i>
                     <span class="font-medium">Guests:</span>
                     <%= booking.guests %>
                   </p>
-                  <p>
+                  <p class="text-gray-600 text-sm">
+                    <i class="fas fa-rupee-sign mr-2 text-red-500"></i>
                     <span class="font-medium">Total Price:</span>
-                    ₹<%= booking.totalPrice %>
+                    <span class="text-lg font-bold text-red-500">₹<%= booking.totalPrice %></span>
                   </p>
-                  <p>
+                  <p class="text-gray-600 text-sm">
+                    <i class="fas fa-info-circle mr-2 text-red-500"></i>
                     <span class="font-medium">Status:</span>
-                    <span class="capitalize <%= booking.status === 'confirmed' ? 'text-green-600' : 'text-yellow-600' %>">
+                    <span class="capitalize font-semibold <%= booking.status === 'confirmed' ? 'text-green-600' : booking.status === 'pending' ? 'text-yellow-600' : 'text-red-600' %>">
                       <%= booking.status %>
                     </span>
                   </p>
                 </div>
-                <div class="mt-4">
-                  <a href="/homes/<%= booking.home._id %>" 
-                     class="text-indigo-600 hover:text-indigo-800 font-medium">
-                    View Home Details
-                  </a>
-                </div>
+
+                <a href="/homes/<%= booking.home._id %>" 
+                   class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 text-center w-full inline-block"
+                   style="background-color: #3b82f6 !important; color: white !important; padding: 8px 16px !important; border-radius: 8px !important; text-decoration: none !important; display: block !important; text-align: center !important;">
+                  View Home Details
+                </a>
               </div>
             </div>
           <% } %>
         </div>
       <% } else { %>
         <div class="text-center py-12">
+          <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4"></i>
           <p class="text-2xl text-gray-600 mb-4">You haven't made any bookings yet</p>
-          <a href="/homes" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">
+          <p class="text-gray-500 mb-6">Start exploring and book your perfect stay!</p>
+          <a href="/homes" 
+             class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition duration-300 font-medium"
+             style="background-color: #ef4444 !important; color: white !important; padding: 12px 24px !important; border-radius: 8px !important; text-decoration: none !important; font-weight: 600 !important;">
             Browse Homes
           </a>
         </div>
